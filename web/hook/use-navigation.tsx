@@ -7,10 +7,10 @@ const useNavigation = () => {
   const pathname = usePathname();
   
   return {
-    isHomeActive: pathname === "/",
-    isExploreActive: pathname === "/explore",
-    isNotificationsActive: pathname === "/notifications",
-    isMessagesActive: pathname === "/messages",
+    isChatActive: pathname === "/",
+    isPlanesActive: pathname === "/explore",
+    isTareasActive: pathname === "/notifications",
+    isPerfilActive: pathname === "/messages",
   };
 };
 

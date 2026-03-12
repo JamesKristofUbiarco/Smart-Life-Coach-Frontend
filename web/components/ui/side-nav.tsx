@@ -10,10 +10,10 @@ import { Icon } from "@iconify-icon/react";
 
 const SideNav = () => {
   const {
-    isHomeActive,
-    isExploreActive,
-    isNotificationsActive,
-    isMessagesActive,
+    isChatActive,
+    isPlanesActive,
+    isTareasActive,
+    isPerfilActive,
   } = useNavigation();
 
 /* sm:hidden y md:flex en el primer <div> son la clave para el responsive */
@@ -30,15 +30,15 @@ const SideNav = () => {
         href="/"
         className="flex flex-row space-x-4 items-center px-4 py-3 rounded-full duration-200 hover:bg-white/10 relative"
         >
-        {isHomeActive ? (
-            <Icon icon="mingcute:home-5-fill" width="38" height="38" />
+        {isChatActive ? (
+            <Icon style={{color: '#2563EB'}} icon="bx:comment" width="38" height="38" />
         ) : (
-            <Icon icon="mingcute:home-5-fill" width="38" height="38" />
+            <Icon icon="bx:comment" width="38" height="38" />
         )}
         <span
-            className={`text-2xl pt-2 hidden md:flex ${isHomeActive ? "font-bold" : ""}`}
+            className={`text-2xl pt-2 hidden md:flex ${isChatActive ? "font-bold text-[#2563EB]" : ""}`}
         >
-            Home
+            Chat
         </span>
         {/* <span className='h-2 w-2 rounded-full bg-sky-500 absolute top-3 right-[16px] md:right-[100px]'></span> */}
         </Link>
@@ -46,56 +46,56 @@ const SideNav = () => {
         href="/explore"
         className="flex flex-row space-x-4 items-center px-4 py-3 rounded-full duration-200 hover:bg-white/10"
         >
-        {isExploreActive ? (
+        {isPlanesActive ? (
             <Icon
-            icon="uil:search"
+            icon="glyphs:target-bold"
             width="38"
             height="38"
             className="stroke-current stroke-5"
             />
         ) : (
-            <Icon icon="uil:search" width="38" height="38" />
+            <Icon icon="glyphs:target-bold" width="38" height="38" />
         )}
         <span
             className={`text-2xl pt-2 hidden md:flex ${
-            isExploreActive ? "font-bold" : ""
+            isPlanesActive ? "font-bold text-[#2563EB]" : ""
             }`}
         >
-            Explore
+            Planes
         </span>
         </Link>
         <Link
         href="/notifications"
         className="flex flex-row space-x-4 items-center px-4 py-3 rounded-full duration-200 hover:bg-white/10"
         >
-        {isNotificationsActive ? (
-            <Icon icon="mingcute:notification-fill" width="38" height="38" />
+        {isTareasActive ? (
+            <Icon icon="material-symbols:select-check-box-rounded" width="38" height="38" />
         ) : (
-            <Icon icon="mingcute:notification-line" width="38" height="38" />
+            <Icon icon="material-symbols:select-check-box-rounded" width="38" height="38" />
         )}
         <span
             className={`text-2xl pt-2 hidden md:flex ${
-            isNotificationsActive ? "font-bold" : ""
+            isTareasActive ? "font-bold text-[#2563EB]" : ""
             }`}
         >
-            Notifications
+            Tareas
         </span>
         </Link>
         <Link
         href="/messages"
         className="flex flex-row space-x-4 items-center px-4 py-3 rounded-full duration-200 hover:bg-white/10"
         >
-        {isMessagesActive ? (
-            <Icon icon="ic:baseline-email" width="38" height="38" />
+        {isPerfilActive ? (
+            <Icon icon="fa7-regular:user-alt" width="38" height="38" />
         ) : (
-            <Icon icon="ic:outline-email" width="38" height="38" />
+            <Icon icon="fa7-regular:user-alt" width="38" height="38" />
         )}
         <span
             className={`text-2xl pt-2 hidden md:flex ${
-            isMessagesActive ? "font-bold" : ""
+            isPerfilActive ? "font-bold text-[#2563EB]" : ""
             }`}
         >
-            Messages
+            Perfil
         </span>
         </Link>
     </div>
