@@ -1,7 +1,7 @@
 // web/components/ui/chat.tsx
 "use client";
 
-import { useChat } from "@ai-sdk/react";
+import { UIMessage, useChat } from "@ai-sdk/react";
 import { useRef, useEffect, useState } from "react";
 import { Send, Bot, User, Loader2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -41,7 +41,7 @@ export default function Chat() {
           },
         ],
       },
-    ],
+    ] as UIMessage[], // Se agrega UIMessage para forzar el tipado y evitar errores
     onError: (error) => {
       console.error("Chat error:", error);
     },
@@ -51,25 +51,6 @@ export default function Chat() {
   });
 
   const isLoading = status === "streaming" || status === "submitted";
-
-  // Add welcome message on mount
-  // useEffect(() => {
-  //     if (messages.length === 0) {
-  //         setMessages((prev) => [
-  //             ...prev,
-  //             {
-  //                 id: "welcome",
-  //                 role: "assistant" as const,
-  //                 parts: [
-  //                     {
-  //                         type: "text" as const,
-  //                         text: "¡Hola! Soy tu coach de vida inteligente, si buscas algún plan para lograr tus objetivos dime y te ayudo a planificarlo.",
-  //                     },
-  //                 ],
-  //             },
-  //         ]);
-  //     }
-  // }, [messages.length, setMessages]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
