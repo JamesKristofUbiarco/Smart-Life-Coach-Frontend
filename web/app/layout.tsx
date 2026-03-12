@@ -3,6 +3,9 @@ import type { Metadata } from "next";
 // import { Geist, Geist_Mono, Figtree } from "next/font/google";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import BottomNav from "@/components/ui/bottom-nav";
+import MaxWidthWrapper from "@/components/ui/max-width-wrapper";
+import SideNav from "@/components/ui/side-nav";
 // import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -31,10 +34,14 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body
-        className={`${inter.className} h-full bg-linear-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900`}
+        className={`${inter.className} bg-linear-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900`}
         suppressHydrationWarning={true}
       >
-        {children}
+        <MaxWidthWrapper>
+          <SideNav />
+          <main className="flex-1">{children}</main>
+        </MaxWidthWrapper>
+        <BottomNav />
       </body>
     </html>
   );
