@@ -15,10 +15,12 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
+import { DefaultChatTransport } from "ai";
 
 export default function Chat() {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  
   const [input, setInput] = useState("");
 
   const {
@@ -29,7 +31,11 @@ export default function Chat() {
     regenerate,
     stop,
     // setMessages, // Ya no se usa con el useEffect, fue reemplazado por useChat y messages
+    // Usamos transport: new DefaultChatTransport para conectarnos al servidor de FastAPI donde estará nuestro Backend
   } = useChat({
+    transport: new DefaultChatTransport({
+      api: "http://localhost:8000/Chat",
+    }),  
     messages: [
       {
         id: "welcome",
@@ -75,10 +81,13 @@ export default function Chat() {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
 
-    sendMessage({
-      role: "user",
-      parts: [{ type: "text", text: input }],
-    });
+    // Prueba: cambiamos el sendMessage para tener una versión menos rígida, ahora no tiene parts ni role
+    const payload= {
+      text: input
+    };
+    console.log("Enviando a API", payload)
+
+    sendMessage({ text: input });
     setInput("");
   };
 
@@ -166,6 +175,7 @@ export default function Chat() {
                         )}
                       >
                         <div className="whitespace-pre-wrap wrap-break-word leading-relaxed overflow-wrap-anywhere">
+                          {/* El código original limpio y seguro de tipos */}
                           {message.parts?.map((part, index) => {
                             if (part.type === "text") {
                               return <p key={index}>{part.text}</p>;
