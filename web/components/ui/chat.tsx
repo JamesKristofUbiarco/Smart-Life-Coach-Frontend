@@ -33,9 +33,6 @@ export default function Chat() {
     // setMessages, // Ya no se usa con el useEffect, fue reemplazado por useChat y messages
     // Usamos transport: new DefaultChatTransport para conectarnos al servidor de FastAPI donde estará nuestro Backend
   } = useChat({
-    transport: new DefaultChatTransport({
-      api: "http://localhost:8000/Chat",
-    }),  
     messages: [
       {
         id: "welcome",
