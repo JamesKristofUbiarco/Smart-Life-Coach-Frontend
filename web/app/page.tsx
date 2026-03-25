@@ -1,5 +1,5 @@
 // web/app/page.tsx
-import Chat from "../components/ui/chat";
+import Chat from "@/components/ui/chat";
 
 export default function Home() {
   return (

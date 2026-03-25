@@ -15,10 +15,14 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { DefaultChatTransport } from "ai";
 
 export default function Chat() {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  
   const [input, setInput] = useState("");
 
   const {
@@ -29,6 +33,7 @@ export default function Chat() {
     regenerate,
     stop,
     // setMessages, // Ya no se usa con el useEffect, fue reemplazado por useChat y messages
+    // Usamos transport: new DefaultChatTransport para conectarnos al servidor de FastAPI donde estará nuestro Backend
   } = useChat({
     messages: [
       {
@@ -56,10 +61,13 @@ export default function Chat() {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
 
-    sendMessage({
-      role: "user",
-      parts: [{ type: "text", text: input }],
-    });
+    // Prueba: cambiamos el sendMessage para tener una versión menos rígida, ahora no tiene parts ni role
+    const payload= {
+      text: input
+    };
+    console.log("Enviando a API", payload)
+
+    sendMessage({ text: input });
     setInput("");
   };
 
@@ -142,13 +150,23 @@ export default function Chat() {
                         className={cn(
                           "rounded-lg px-4 py-2.5 text-sm max-w-full",
                           isUser
-                            ? "bg-primary text-primary-foreground"
+                            ? "text-primary-foreground bg-blue-600" // bg-blue-600 para que parezca más al objetivo de figma
                             : "bg-muted",
                         )}
                       >
                         <div className="whitespace-pre-wrap wrap-break-word leading-relaxed overflow-wrap-anywhere">
+                          {/* IMPLEMENTACIÓN DE MARKDOWN */}
                           {message.parts?.map((part, index) => {
                             if (part.type === "text") {
+                              if (!isUser) {
+                                return (
+                                  <div key={index} className="prose prose-sm dark:prose-invert max-w-none wrap-break-word">
+                                    <ReactMarkdown remarkPlugins={[remarkGfm]} >
+                                      {part.text}
+                                    </ReactMarkdown>
+                                  </div>
+                                )
+                              }
                               return <p key={index}>{part.text}</p>;
                             }
                             return null;
@@ -238,7 +256,7 @@ export default function Chat() {
                 Stop
               </Button>
             ) : (
-              <Button type="submit" disabled={!input.trim()} size="sm">
+              <Button type="submit" disabled={!input.trim()} size="sm" className="bg-blue-600"> {/*bg-blue-600 para que parezca más al objetivo de figma*/}
                 <Send className="h-4 w-4" />
                 <span className="ml-2 hidden sm:inline">Send</span>
               </Button>
