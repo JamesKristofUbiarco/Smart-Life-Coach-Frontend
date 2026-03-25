@@ -108,12 +108,12 @@ export default async function PlanesPage() {
                   className={`text-xs px-2 py-1 rounded-full font-medium ${
                     plan.status === "completed" || plan.progreso === 100
                       ? "bg-blue-100 text-blue-600"
-                      : "bg-green-100 text-green-700"
+                      : (plan.progreso === 0 ? "bg-yellow-100 text-yellow-700" : "bg-green-100 text-green-700")
                   }`}
                 >
                   {plan.status === "completed" || plan.progreso === 100
                     ? "Finalizado"
-                    : "En curso"}
+                    : (plan.progreso === 0 ? "Por iniciar" : "En curso")} {/*Se agregan los caos "Por iniciar" cuando progreso es igual a 0*/} 
                 </span>
               </div>
 

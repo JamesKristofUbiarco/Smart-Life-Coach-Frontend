@@ -15,6 +15,8 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { DefaultChatTransport } from "ai";
 
 export default function Chat() {
@@ -167,14 +169,23 @@ export default function Chat() {
                         className={cn(
                           "rounded-lg px-4 py-2.5 text-sm max-w-full",
                           isUser
-                            ? "bg-primary text-primary-foreground"
+                            ? "text-primary-foreground bg-blue-600" // bg-blue-600 para que parezca más al objetivo de figma
                             : "bg-muted",
                         )}
                       >
                         <div className="whitespace-pre-wrap wrap-break-word leading-relaxed overflow-wrap-anywhere">
-                          {/* El código original limpio y seguro de tipos */}
+                          {/* IMPLEMENTACIÓN DE MARKDOWN */}
                           {message.parts?.map((part, index) => {
                             if (part.type === "text") {
+                              if (!isUser) {
+                                return (
+                                  <div key={index} className="prose prose-sm dark:prose-invert max-w-none wrap-break-word">
+                                    <ReactMarkdown remarkPlugins={[remarkGfm]} >
+                                      {part.text}
+                                    </ReactMarkdown>
+                                  </div>
+                                )
+                              }
                               return <p key={index}>{part.text}</p>;
                             }
                             return null;
@@ -264,7 +275,7 @@ export default function Chat() {
                 Stop
               </Button>
             ) : (
-              <Button type="submit" disabled={!input.trim()} size="sm">
+              <Button type="submit" disabled={!input.trim()} size="sm" className="bg-blue-600"> {/*bg-blue-600 para que parezca más al objetivo de figma*/}
                 <Send className="h-4 w-4" />
                 <span className="ml-2 hidden sm:inline">Send</span>
               </Button>
