@@ -15,6 +15,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
+import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover'
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { DefaultChatTransport } from "ai";
@@ -104,6 +105,16 @@ export default function Chat() {
             <div className="flex-1">
               <CardTitle>Smart Life Coach - Tu asistente inteligente</CardTitle>
               <CardDescription>Impulsado por Gemini 3 Flash</CardDescription>
+            </div>
+            <div>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="outline">Chats anteriores</Button>
+                </PopoverTrigger>
+                <PopoverContent align="end" className="w-40">
+                  Aligned to end
+                </PopoverContent>
+              </Popover>
             </div>
           </div>
         </CardHeader>
