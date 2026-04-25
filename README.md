@@ -1,6 +1,21 @@
 # Smart-Life-Coach-Frontend
 A frontend module for the project Smart Life Coach.
 
+## .env.template
+Para manejar el archivo con las variables de entorno recomiendo copiar el template y duplicarlo en un archivo `.env.local` para probar en PC o  `.env.production` para probar en docker
+
+## Docker
+Para montar la imagen de Docker estando en la carpeta frontend vamos a ejecutar estos dos comandos (obviamente debes tener Docker instalado y corriendo):
+
+```bash
+docker build -t nextjs-app .
+```
+
+```bash
+docker run -p 3000:3000 nextjs-app
+```
+
+# NextJS Docs
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
