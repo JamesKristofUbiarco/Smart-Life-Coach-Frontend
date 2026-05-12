@@ -13,6 +13,15 @@ RUN npm ci
 # Builder
 FROM base AS builder
 
+# NEXT_PUBLIC_* deben estar disponibles en tiempo de BUILD para que Next.js
+# los inline en el bundle del cliente. Se reciben como build-args opcionales
+# desde docker-compose. Si se construye con `docker build` plano, quedan
+# vacíos (comportamiento previo).
+ARG NEXT_PUBLIC_SUPABASE_URL
+ARG NEXT_PUBLIC_SUPABASE_ANON_KEY
+ENV NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL}
+ENV NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+
 COPY --from=deps /app/node_modules ./node_modules
 
 COPY . .
